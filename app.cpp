@@ -61,6 +61,11 @@ int main() {
         else row += 3;
 
         printGrid();
+
+        #ifdef _WIN32
+        Sleep(40);
+        #else
         usleep(40000);
+        #endif
     }
 }
