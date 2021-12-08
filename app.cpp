@@ -7,6 +7,7 @@
 #endif
 
 using namespace std;
+
 char grid[10][100];
 
 void clearGrid() {
