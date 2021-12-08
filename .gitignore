@@ -2,7 +2,7 @@
 .DS_Store
 
 #vscode
-.vscode/settings.json
+.vscode
 
 #compiled files
 app
