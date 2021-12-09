@@ -3,15 +3,27 @@
 using namespace std;
 
 #ifdef _WIN32
-    #include <Windows.h>
+  #include <Windows.h>
 #else
-    #include <unistd.h>
-    int colors[] = { 40, 41, 42, 43, 44, 45, 46, 47, 100, 101, 102, 103, 104, 105, 106, 107 };
+  #include <unistd.h>
+  string colors[] = { "31", "32", "33", "34", "35", "36" };
 #endif
 
-
-
 char grid[10][100];
+
+int x = 0, oldx;
+void colorGrid(bool changeColor) {
+    if (changeColor) do {
+        oldx = x;
+        x = rand()%6;
+    } while (x == oldx);
+
+    cout << "\033[" + colors[x] + "m";
+}
+
+void colorGridDefault() {
+    cout << "\033[37m";
+}
 
 void clearGrid() {
     for (int i = 0; i < 10; i++)
@@ -19,30 +31,36 @@ void clearGrid() {
             grid[i][j] = ' ';
 }
 
-void printGrid() {
+void printGrid(bool changeColor) {
     #ifdef _WIN32
-    system("cls");
+      system("cls");
     #else
-    system("clear");
+      system("clear");
     #endif
 
-    cout << "\033[102;41m";
-
+    colorGrid(changeColor);
     cout << '+';
     for (int i = 0; i < 100; i++) cout << '-';
     cout << '+' << endl;
+
     for (int i = 0; i < 10; i++) {
         cout << '|';
+
+        colorGridDefault();
         for (int j = 0; j < 100; j++)
             cout << grid[i][j];
+
+        colorGrid(false);
         cout << '|' << endl;
     }
+
     cout << '+';
     for (int i = 0; i < 100; i++) cout << '-';
     cout << '+' << endl;
 
     cout.flush();
 }
+
 
 int main() {
     unsigned int row = 0, column = 0;
@@ -52,8 +70,6 @@ int main() {
         clearGrid();
 
         grid[column][row] = 'o';
-
-        if (column == 0 || column == 9 || row == 0 || row == 99) cout << '\a';
 
         if (column == 9) up = true;
         else if (column == 0) up = false;
@@ -67,12 +83,15 @@ int main() {
         if (left) row -= 3;
         else row += 3;
 
-        printGrid();
+        if (column == 0 || column == 9 || row == 0 || row == 99) {
+            printGrid(true);
+            cout << '\a';
+        } else printGrid(false);
 
         #ifdef _WIN32
-        Sleep(40);
+          Sleep(40);
         #else
-        usleep(40000);
+          usleep(40000);
         #endif
     }
 }
