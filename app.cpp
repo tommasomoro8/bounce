@@ -18,11 +18,19 @@ void colorGrid(bool changeColor) {
         x = rand()%6;
     } while (x == oldx);
 
-    cout << "\033[" + colors[x] + "m";
+    #ifdef _WIN32
+      
+    #else
+      cout << "\033[" + colors[x] + "m";
+    #endif
 }
 
 void colorGridDefault() {
-    cout << "\033[37m";
+    #ifdef _WIN32
+      
+    #else
+      cout << "\033[37m";
+    #endif
 }
 
 void clearGrid() {
