@@ -1,12 +1,15 @@
 #include <iostream>
 
+using namespace std;
+
 #ifdef _WIN32
-#include <Windows.h>
+    #include <Windows.h>
 #else
-#include <unistd.h>
+    #include <unistd.h>
+    int colors[] = { 40, 41, 42, 43, 44, 45, 46, 47, 100, 101, 102, 103, 104, 105, 106, 107 };
 #endif
 
-using namespace std;
+
 
 char grid[10][100];
 
@@ -22,6 +25,8 @@ void printGrid() {
     #else
     system("clear");
     #endif
+
+    cout << "\033[102;41m";
 
     cout << '+';
     for (int i = 0; i < 100; i++) cout << '-';
