@@ -48,6 +48,8 @@ int main() {
 
         grid[column][row] = 'o';
 
+        if (column == 0 || column == 9 || row == 0 || row == 99) cout << '\a';
+
         if (column == 9) up = true;
         else if (column == 0) up = false;
 
