@@ -104,9 +104,9 @@ int main() {
         } else printGrid(false);
 
         #ifdef _WIN32
-          Sleep(40);
+          Sleep(70);
         #else
-          usleep(40000);
+          usleep(70000);
         #endif
     }
 }
