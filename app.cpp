@@ -1,13 +1,7 @@
 #include <iostream>
+#include <Windows.h>
 
 using namespace std;
-
-#ifdef _WIN32
-  #include <Windows.h>
-#else
-  #include <unistd.h>
-  string colors[] = { "31", "32", "33", "34", "35", "36" };
-#endif
 
 char grid[10][100];
 
@@ -17,20 +11,19 @@ void colorGrid(bool changeColor) {
         oldx = x;
         x = rand()%6;
     } while (x == oldx);
-
-    #ifdef _WIN32
-      
-    #else
-      cout << "\033[" + colors[x] + "m";
-    #endif
+    
+    switch (x) {
+    	case 0: system("color 01"); break;
+    	case 1: system("color 02"); break;
+    	case 2: system("color 03"); break;
+    	case 3: system("color 04"); break;
+    	case 4: system("color 05"); break;
+    	case 5: system("color 06"); break;
+	}
 }
 
 void colorGridDefault() {
-    #ifdef _WIN32
-      
-    #else
-      cout << "\033[37m";
-    #endif
+    system("color 07");
 }
 
 void clearGrid() {
@@ -40,11 +33,7 @@ void clearGrid() {
 }
 
 void printGrid(bool changeColor) {
-    #ifdef _WIN32
-      system("cls");
-    #else
-      system("clear");
-    #endif
+    system("cls");
 
     colorGrid(changeColor);
     cout << '+';
@@ -96,10 +85,6 @@ int main() {
             cout << '\a';
         } else printGrid(false);
 
-        #ifdef _WIN32
-          Sleep(40);
-        #else
-          usleep(40000);
-        #endif
+        Sleep(40);
     }
 }
