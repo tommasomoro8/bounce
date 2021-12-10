@@ -1,43 +1,24 @@
 #include <iostream>
+#include <unistd.h>
 
 using namespace std;
-
-#ifdef _WIN32
-  #include <Windows.h>
-#else
-  #include <unistd.h>
-  string colors[] = { "31", "32", "33", "34", "35", "36" };
-#endif
 
 char grid[10][100];
 
 int x = 0, oldx;
+string colors[] = { "31", "32", "33", "34", "35", "36" };
+
 void colorGrid(bool changeColor) {
     if (changeColor) do {
         oldx = x;
         x = rand()%6;
     } while (x == oldx);
-
-    #ifdef _WIN32
-      switch (x) {
-        case 0: system("color 01"); break;
-        case 1: system("color 02"); break;
-        case 2: system("color 03"); break;
-        case 3: system("color 04"); break;
-        case 4: system("color 05"); break;
-        case 5: system("color 06"); break;
-      }
-    #else
-      cout << "\033[" + colors[x] + "m";
-    #endif
+    
+    cout << "\033[" + colors[x] + "m";
 }
 
 void colorGridDefault() {
-    #ifdef _WIN32
-      system("color 07");
-    #else
-      cout << "\033[37m";
-    #endif
+    cout << "\033[37m";
 }
 
 void clearGrid() {
@@ -47,11 +28,7 @@ void clearGrid() {
 }
 
 void printGrid(bool changeColor) {
-    #ifdef _WIN32
-      system("cls");
-    #else
-      system("clear");
-    #endif
+    system("clear");
 
     colorGrid(changeColor);
     cout << '+';
@@ -75,7 +52,6 @@ void printGrid(bool changeColor) {
 
     cout.flush();
 }
-
 
 int main() {
     unsigned int row = 0, column = 0;
@@ -103,10 +79,6 @@ int main() {
             cout << '\a';
         } else printGrid(false);
 
-        #ifdef _WIN32
-          Sleep(40);
-        #else
-          usleep(40000);
-        #endif
+        usleep(70000);
     }
 }
