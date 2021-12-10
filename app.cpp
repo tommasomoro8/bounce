@@ -19,7 +19,14 @@ void colorGrid(bool changeColor) {
     } while (x == oldx);
 
     #ifdef _WIN32
-      
+      switch (x) {
+        case 0: system("color 01"); break;
+        case 1: system("color 02"); break;
+        case 2: system("color 03"); break;
+        case 3: system("color 04"); break;
+        case 4: system("color 05"); break;
+        case 5: system("color 06"); break;
+      }
     #else
       cout << "\033[" + colors[x] + "m";
     #endif
