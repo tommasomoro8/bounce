@@ -5,15 +5,12 @@ using namespace std;
 
 char grid[10][100];
 
-int x = 0, oldx;
 string colors[] = { "31", "32", "33", "34", "35", "36" };
 
+int x = 0;
 void colorGrid(bool changeColor) {
-    if (changeColor) do {
-        oldx = x;
-        x = rand()%6;
-    } while (x == oldx);
-    
+    if (changeColor) x = rand()%6;
+
     cout << "\033[" + colors[x] + "m";
 }
 
@@ -54,7 +51,7 @@ void printGrid(bool changeColor) {
 }
 
 int main() {
-    unsigned int row = 0, column = 0;
+    int row = 0, column = 0;
     bool up = false, left = false;
 
     while (true) {
