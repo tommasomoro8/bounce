@@ -19,7 +19,7 @@ void colorGrid(bool changeColor) {
     	case 3: system("color 04"); break;
     	case 4: system("color 05"); break;
     	case 5: system("color 06"); break;
-	}
+    }
 }
 
 void colorGridDefault() {
