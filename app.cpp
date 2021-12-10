@@ -27,7 +27,7 @@ void colorGrid(bool changeColor) {
 
 void colorGridDefault() {
     #ifdef _WIN32
-      
+      system("color 07");
     #else
       cout << "\033[37m";
     #endif
