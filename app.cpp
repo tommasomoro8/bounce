@@ -1,44 +1,11 @@
 #include <iostream>
+#include <unistd.h>
 
 using namespace std;
 
-#ifdef _WIN32
-  #include <Windows.h>
-#else
-  #include <unistd.h>
-  string colors[] = { "31", "32", "33", "34", "35", "36" };
-#endif
-
 char grid[10][100];
 
-int x = 0, oldx;
-void colorGrid(bool changeColor) {
-    if (changeColor) do {
-        oldx = x;
-        x = rand()%6;
-    } while (x == oldx);
-
-    #ifdef _WIN32
-      switch (x) {
-        case 0: system("color 01"); break;
-        case 1: system("color 02"); break;
-        case 2: system("color 03"); break;
-        case 3: system("color 04"); break;
-        case 4: system("color 05"); break;
-        case 5: system("color 06"); break;
-      }
-    #else
-      cout << "\033[" + colors[x] + "m";
-    #endif
-}
-
-void colorGridDefault() {
-    #ifdef _WIN32
-      system("color 07");
-    #else
-      cout << "\033[37m";
-    #endif
-}
+string colors[] = { "31", "32", "33", "34", "35", "36" };
 
 void clearGrid() {
     for (int i = 0; i < 10; i++)
@@ -47,13 +14,8 @@ void clearGrid() {
 }
 
 void printGrid(bool changeColor) {
-    #ifdef _WIN32
-      system("cls");
-    #else
-      system("clear");
-    #endif
+    system("clear");
 
-    colorGrid(changeColor);
     cout << '+';
     for (int i = 0; i < 100; i++) cout << '-';
     cout << '+' << endl;
@@ -61,11 +23,9 @@ void printGrid(bool changeColor) {
     for (int i = 0; i < 10; i++) {
         cout << '|';
 
-        colorGridDefault();
         for (int j = 0; j < 100; j++)
             cout << grid[i][j];
 
-        colorGrid(false);
         cout << '|' << endl;
     }
 
@@ -76,9 +36,8 @@ void printGrid(bool changeColor) {
     cout.flush();
 }
 
-
 int main() {
-    unsigned int row = 0, column = 0;
+    int row = 0, column = 0;
     bool up = false, left = false;
 
     while (true) {
@@ -103,10 +62,6 @@ int main() {
             cout << '\a';
         } else printGrid(false);
 
-        #ifdef _WIN32
-          Sleep(70);
-        #else
-          usleep(70000);
-        #endif
+        usleep(70000);
     }
 }
