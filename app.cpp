@@ -13,7 +13,7 @@ void clearGrid() {
             grid[i][j] = ' ';
 }
 
-void printGrid(bool changeColor) {
+void printGrid() {
     system("clear");
 
     cout << '+';
@@ -57,10 +57,9 @@ int main() {
         if (left) row -= 3;
         else row += 3;
 
-        if (column == 0 || column == 9 || row == 0 || row == 99) {
-            printGrid(true);
-            cout << '\a';
-        } else printGrid(false);
+        if (column == 0 || column == 9 || row == 0 || row == 99) cout << '\a';
+        
+        printGrid();
 
         usleep(70000);
     }
