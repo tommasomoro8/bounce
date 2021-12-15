@@ -5,8 +5,6 @@ using namespace std;
 
 char grid[10][100];
 
-string colors[] = { "31", "32", "33", "34", "35", "36" };
-
 void clearGrid() {
     for (int i = 0; i < 10; i++)
         for (int j = 0; j < 100; j++)
